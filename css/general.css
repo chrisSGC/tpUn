@@ -11,3 +11,10 @@ li.dropdown{ display: inline-block; }
 .dropdown:hover .dropdown-content{ display: block; }
 .joueur{ background-color: #f1f1f1; color: #6D071A; padding: 0 16px; }
 #officerName{ font-weight: bold; }
+
+
+
+
+/***TESt***/
+.noir{ width: 20%; padding: 2%; background-color: #6D071A; color: #f1f1f1; font-weight: bold; text-align: center; margin: auto; margin-top: 2vh; }
+.noir:hover{ background-color: #f1f1f1; color: #6D071A; }

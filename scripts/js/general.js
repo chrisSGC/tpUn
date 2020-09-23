@@ -20,6 +20,9 @@ function initialiserPartie(){
 
     // On crée la boite pour afficher le compteur
     miseEnPlacePoints();
+
+    // On met ensuite en place le fond d'écran par défaut
+    changerEnvironnement(1)
 }
 
 /**
@@ -51,10 +54,22 @@ function miseEnPlacePoints(){
  * @param {integer} typeEnvironnement 
  */
 function changerEnvironnement(typeEnvironnement){
-    themeActuel = (isNan(typeEnvironnement)) ? 0 : typeEnvironnement - 1;
+    themeActuel = (Number.isNaN(typeEnvironnement)) ? 0 : typeEnvironnement - 1;
 
     // Si le thème est supérieur à 2, on met alors le thème par défaut que est donc 0
     if(themeActuel > 2){
         themeActuel = 0;
     }
+
+    document.getElementsByTagName("body")[0].style.background = 'url: (../../images/fonds/'+fondsPossibles[themeActuel]+')';
+}
+
+/**
+ * Permet de mettre à jour le compteur ainsi que son affichage
+ * @param {integer} hausse 
+ */
+function mettreAJourCompteur(hausse){
+    compteur = compteur + hausse;
+
+    document.getElementById('zonePoints').innerHTML = compteur;
 }
