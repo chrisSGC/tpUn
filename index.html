@@ -14,21 +14,21 @@
 </head>
 <body onload="initialiserPartie();">
 <!--<body>-->
-    <header>
+    <header id="menuJeu">
         <ul class="menu">
             <li class="joueur"><a href="#" class="dropbtn"></a>Officer name: <span id="officerName"></span><a href="#" class="dropbtn"></a></li>
         <ul class="menu">
             <li class="dropdown"><a href="#" class="dropbtn">Jeu</a>
                 <div class="dropdown-content">
-                    <a href="#">Recommencer</a>
+                    <a href="#" onclick="initialiserPartie();">Recommencer</a>
                     <a href="#">Quitter</a>
                 </div>
             </li>
             <li class="dropdown"><a href="#" class="dropbtn">Fond d'écran</a>
                 <div class="dropdown-content">
-                    <a href="#">Battle of Coruscant</a>
-                    <a href="#">Wraith battle</a>
-                    <a href="#">This cannot happen</a>
+                    <a href="#" onclick="changerEnvironnement(1);">Battle of Coruscant</a>
+                    <a href="#" onclick="changerEnvironnement(2);">Wraith battle</a>
+                    <a href="#" onclick="changerEnvironnement(3);">This cannot happen</a>
                 </div>
             </li>
             <li class="dropdown"><a href="#" class="dropbtn">Polices</a>
@@ -42,6 +42,5 @@
             </li>
         </ul>
     </header>
-    
 </body>
 </html>
