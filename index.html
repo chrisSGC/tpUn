@@ -12,9 +12,11 @@
     <!-- JS -->
     <script src="scripts/js/general.js"></script>
 </head>
-<!--<body onload="initialiserPartie();">-->
-<body>
+<body onload="initialiserPartie();">
+<!--<body>-->
     <header>
+        <ul class="menu">
+            <li class="joueur"><a href="#" class="dropbtn"></a>Officer name: <span id="officerName"></span><a href="#" class="dropbtn"></a></li>
         <ul class="menu">
             <li class="dropdown"><a href="#" class="dropbtn">Jeu</a>
                 <div class="dropdown-content">
@@ -36,7 +38,7 @@
                     <a href="#">Taille 3</a>
                 </div>
             </li>
-            <li><a href="#" class="dropbtn">Aide</a>
+            <li><a href="#" class="dropbtn" onclick="afficherRegles();">Aide</a>
             </li>
         </ul>
     </header>
