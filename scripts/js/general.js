@@ -1,4 +1,6 @@
-var fondsPossibles = ['Spacebattle.jpg', 'stargate.jpg', 'stvssw.jps'];
+var page = document.getElementsByTagName("BODY")[0];
+
+var fondsPossibles = ['Spacebattle.jpg', 'stargate.jpg', 'stvssw.jpg'];
 
 var nomJoueur = "";
 var themeActuel = 0;
@@ -61,7 +63,7 @@ function changerEnvironnement(typeEnvironnement){
         themeActuel = 0;
     }
 
-    document.getElementsByTagName("body")[0].style.background = 'url: (../../images/fonds/'+fondsPossibles[themeActuel]+')';
+    document.getElementsByTagName("body")[0].style.background = "url('images/fonds/"+fondsPossibles[themeActuel]+"') no-repeat";
 }
 
 /**
