@@ -71,7 +71,7 @@ function definirChrono(){
  * Affiche les regles du jeu
  */
 function afficherRegles(){
-    alert("Voici les regles du jeu:\nUtilisez Q et D pour un effet surprise\nVous diposez de 60 secondes pour détruire autan d'ennemis que possible");
+    alert("Voici les regles du jeu:\nUtilisez Q et D pour un effet surprise\nIl s'agit d'un jeu de type clicker. C'est à dire que vous devez cliquer autan de fois que possible sur le X-Wing dans le temps imparti.\nAttention! Vous ne connaissez pas le chrono, c'est la Surprise Party du jeu! <(^-^)> Have Fun ¡!");
 }
 
 /**
