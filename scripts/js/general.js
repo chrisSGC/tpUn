@@ -7,12 +7,27 @@ var themeActuel = 0;
 var compteur = 0;
 var boitePoints = "";
 
+// Durée de la partie random entre 15 et 120 secondes
+var dureePartie = 0;
+
+definirChrono();
+console.log(dureePartie);
+
+setInterval(gererChrono, 1000);
+
 /**
  * Remet la partie à 0
  */
 function initialiserPartie(){
+    // Si l'affichage des points existe déjà, on le supprime car il provient d'une partie précédente
+    if(document.getElementById('zonePoints')){
+        document.getElementById("zonePoints").remove();
+    }
+
     // On demande le nom du joueur que l'on place dans la variable
-    nomJoueur = prompt("Tactical officer on the bridge! Hi sir! Our captain need your name!");
+    if(nomJoueur == ""){
+        nomJoueur = prompt("Tactical officer on the bridge! Hi sir! Our captain need your name!");
+    }
 
     // On affiche le nom du joueur dans la partie prévue à cet effet
     document.getElementById('officerName').innerHTML = nomJoueur;
@@ -25,6 +40,31 @@ function initialiserPartie(){
 
     // On met ensuite en place le fond d'écran par défaut
     changerEnvironnement(1)
+}
+
+/**
+ * Permet de gérer le chrono et donc la fin de partie
+ */
+function gererChrono(){
+    if(dureePartie > 0){
+        dureePartie = dureePartie - 1;
+        console.log("Nouveau compte: "+dureePartie);
+    }else if(dureePartie <= 0){
+        if(confirm("FIN DE PARTIE\nVous avez atteint "+compteur+"pts.\nVoulez-vous recommencer?")){
+            definirChrono();
+
+            initialiserPartie();
+        }else{
+            close();
+        }
+    }
+}
+
+/**
+ * Determine le chrono
+ */
+function definirChrono(){
+    dureePartie = Math.floor(Math.random() * (120 - 15)) + 15;
 }
 
 /**
