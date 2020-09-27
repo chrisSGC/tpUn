@@ -6,6 +6,8 @@ var nomJoueur = "";
 var themeActuel = 0;
 var compteur = 0;
 var boitePoints = "";
+var monXWing = "";
+var spriteSheet = new Image();
 
 // Durée de la partie random entre 15 et 120 secondes
 var dureePartie = 0;
@@ -22,6 +24,7 @@ function initialiserPartie(){
     // Si l'affichage des points existe déjà, on le supprime car il provient d'une partie précédente
     if(document.getElementById('zonePoints')){
         document.getElementById("zonePoints").remove();
+        document.getElementById("leXWingDuGagnant").remove();
     }
 
     // On demande le nom du joueur que l'on place dans la variable
@@ -39,7 +42,22 @@ function initialiserPartie(){
     miseEnPlacePoints();
 
     // On met ensuite en place le fond d'écran par défaut
-    changerEnvironnement(1)
+    changerEnvironnement(1);
+
+    // On met en  place l'image du X-wing
+    spriteSheet.src = "images/personnages/xwing.png";
+    monXWing = document.createElement("canvas");
+    monXWing.id = "leXWingDuGagnant";
+    monXWing.style.width = "69px";
+    monXWing.style.height = "76px";
+    monXWing.style.background = "url("+spriteSheet.src+")";
+
+    document.getElementById("zoneDeJeu").appendChild(monXWing);
+
+    document.getElementById('leXWingDuGagnant').addEventListener('click', function(){
+        // On met à jour le compteur
+        mettreAJourCompteur(2);
+    });
 }
 
 /**
