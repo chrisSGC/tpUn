@@ -5,6 +5,8 @@
  * 
  * TP Interfaces du Web avancées
  * finalisé le 28-09-2020
+ * 
+ *  L'ENSEMBLE DES MUSIQUES UTILISEES ICI PROVIENNENT DU CD DE LA BO STAR WARS EPISODE 9 ACHETE CHEZ WALMART RDL
  **/
 
 var page = document.getElementsByTagName("BODY")[0];
@@ -19,6 +21,7 @@ var monXWing = "";
 var spriteSheet = new Image();
 var statutPartie = 0;
 var monAudio;
+var nbrPtsAjout = 0;
 
 // Durée de la partie random entre 15 et 120 secondes
 var dureePartie = 0;
@@ -31,7 +34,7 @@ setInterval(gererChrono, 1000);
 /**
  * Remet la partie à 0
  */
-function initialiserPartie(){
+function initialiserPartie(provenance = null){
     // Si l'affichage des points existe déjà, on le supprime car il provient d'une partie précédente
     if(document.getElementById('zonePoints')){
         document.getElementById("zonePoints").remove();
@@ -56,49 +59,35 @@ function initialiserPartie(){
     // On crée la boite pour afficher le compteur
     miseEnPlacePoints();
 
-    // On met ensuite en place le fond d'écran par défaut
-    changerEnvironnement(1);
-
     // On met en  place l'image du X-wing
     spriteSheet.src = "images/personnages/xwing.png";
     ajouterXwing();
+    
+    changerEnvironnement(1, "lancement"); 
 
     document.getElementById('leXWingDuGagnant').addEventListener('click', function(){
         // On met à jour le compteur
-        mettreAJourCompteur(2);
+        mettreAJourCompteur(nbrPtsAjout);
     });
 
     document.addEventListener('keydown', function(event){
-        var keypress = String.fromCharCode(event.keyCode);
+        var keypress = event.key; // event.keycode ==> deprecated donc il est déconseillé de l'utiliser
 
-        if(keypress == "A"){
+        if(keypress == "a"){
             // Le joueur a appuyé sur A, on lance donc la partie
             statutPartie = 1;
             mettreEnPlaceMusique();
 
             //On met en place l'animation en fonction du fond choisi
-            switch(themeActuel){
-                default:
-                    monXWing.style.animation = "mvtCoruscant linear 20s infinite, Xwing 1s steps(8) infinite";
-                    break;
-                case 0:
-                    monXWing.style.animation = "mvtCoruscant linear 20s infinite, Xwing 1s steps(8) infinite";
-                    break;
-                case 1:
-                    monXWing.style.animation = "fightWraiths linear 15s infinite, Xwing 1s steps(8) infinite";
-                    break;
-                case 2:
-                    monXWing.style.animation = "UssEnterpriseVSMilleniumFalcon linear 10s infinite, Xwing 1s steps(8) infinite";
-                    break;
-            }
+            changerAnimation();
         }
     });
 
-    document.addEventListener('mousedown', function(event){
+    document.getElementById('leXWingDuGagnant').addEventListener('mousedown', function(){
         monXWing.style.background = "url(images/personnages/explosion.png)";
     });
 
-    document.addEventListener('mouseup', function(event){
+    document.getElementById('leXWingDuGagnant').addEventListener('mouseup', function(){
         monXWing.style.background = "url("+spriteSheet.src+")";
     });
 }
@@ -121,25 +110,17 @@ function gererChrono(){
     }
 }
 
+/**
+ *Permet de changer la musique en fonction du fond
+ *
+ * 
+ * L'ENSEMBLE DES MUSIQUES UTILISEES ICI PROVIENNENT DU CD DE LA BO STAR WARS EPISODE 9 ACHETE CHEZ WALMART RDL
+ */
 function mettreEnPlaceMusique(){
     monAudio = document.createElement("audio");
     monAudio.id = "audioJeu";
     monAudio.autoplay = "autoplay";
-
-    switch(themeActuel){
-        default:
-            monAudio.src = "sons/06-Caroline.mp3";
-            break;
-        case 0:
-            monAudio.src = "sons/06-Caroline.mp3";
-            break;
-        case 1:
-            monAudio.src = "sons/06-Caroline.mp3";
-            break;
-        case 2:
-            monAudio.src = "sons/06-Caroline.mp3";
-            break;
-    }
+    monAudio.src = "sons/01 Fanfare And Prologue.mp3";
 }
 
 /**
@@ -190,9 +171,11 @@ function miseEnPlacePoints(){
 /**
  * Permet de changer le fond d'écran de la partie
  * @param {integer} typeEnvironnement 
+ * @param {string} provenance
  */
-function changerEnvironnement(typeEnvironnement){
+function changerEnvironnement(typeEnvironnement, provenance = null){
     themeActuel = (Number.isNaN(typeEnvironnement)) ? 0 : typeEnvironnement - 1;
+    nbrPtsAjout =  obtenirHaussePoints();
 
     // Si le thème est supérieur à 2, on met alors le thème par défaut que est donc 0
     if(themeActuel > 2){
@@ -200,6 +183,10 @@ function changerEnvironnement(typeEnvironnement){
     }
 
     document.getElementsByTagName("body")[0].style.background = "url('images/fonds/"+fondsPossibles[themeActuel]+"') no-repeat";
+
+    if(provenance === null){
+        changerAnimation();
+    }
 }
 
 /**
@@ -235,4 +222,56 @@ function changerTaille(typeTaille){
     }
 
     document.getElementById("menuJeu").parentElement.style.fontSize = tailleFinale;
+}
+
+
+/**
+ *Permet d'obtenir le nombre de points qu'un click rapporte sur chaque fond
+ *
+ * @returns
+ */
+function obtenirHaussePoints(){
+    switch(themeActuel){
+        default:
+            return 1;
+            break;
+        case 0:
+            return 1;
+            break;
+        case 1:
+            return 2;
+            break;
+        case 2:
+            return 3;
+            break;
+    }
+}
+
+/**
+ *Change l'animation en fonction du fond
+ *
+ */
+function changerAnimation(){
+    switch(themeActuel){
+        default:
+            monXWing.style.animation = "mvtCoruscant linear 20s infinite, Xwing 1s steps(8) infinite";
+            document.body.style.height = "800px";
+            document.body.style.width = "100vh";
+            break;
+        case 0:
+            monXWing.style.animation = "mvtCoruscant linear 20s infinite, Xwing 1s steps(8) infinite";
+            document.body.style.height = "800px";
+            document.body.style.width = "100vh";
+            break;
+        case 1:
+            monXWing.style.animation = "fightWraiths linear 15s infinite, Xwing 1s steps(8) infinite";
+            document.body.style.height = "1080px";
+            document.body.style.width = "1920px";
+            break;
+        case 2:
+            monXWing.style.animation = "UssEnterpriseVSMilleniumFalcon linear 10s infinite, Xwing 1s steps(8) infinite";
+            document.body.style.height = "100vh";
+            document.body.style.width = "100vw";
+            break;
+    }
 }

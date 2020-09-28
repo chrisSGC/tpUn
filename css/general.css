@@ -7,7 +7,7 @@
  * finalisé le 28-09-2020
  **/
 
-html, body{ margin: 0; padding: 0; height: 100vh; }
+html, body{ margin: 0; padding: 0; }
 .menu{ display: flex; justify-content: center; }
 ul{ list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333; }
 li{ float: left; }

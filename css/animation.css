@@ -13,4 +13,4 @@
 /* Animation du fond 1 */
 @keyframes mvtCoruscant{ 0%{ left: 0; top: -50px; } 25%{ left: 1387px; top: 623px; } 50%{ left: 768px; top: 24px; } 75%{ left: 1800px; top: 587px; } 85%{ left: 260px; top: 622px; } 100%{ left: 0; top: -50px; } }
 @keyframes fightWraiths{ 0%{ left: 0; top: -50px; } 25%{ left: 1387px; top: 623px; } 50%{ left: 125px; top: 487px; } 75%{ left: 1876px; top: 587px; } 85%{ left: 842px; top: 971px; } 100%{ left: 0; top: -50px; } }
-@keyframes UssEnterpriseVSMilleniumFalcon{ 0%{ left: 0; top: -50px; } 25%{ left: 977px; top: 473px; } 50%{ left: 125px; top: 487px; } 75%{ left: 147px; top: -24px; } 85%{ left: 917px; top: 379px; } 100%{ left: 0; top: -50px; } }
+@keyframes UssEnterpriseVSMilleniumFalcon{ 0%{ left: 0; top: -50px; } 25%{ left: 977px; top: 323px; } 50%{ left: 125px; top: 347px; } 75%{ left: 147px; top: -24px; } 85%{ left: 917px; top: 379px; } 100%{ left: 0; top: -50px; } }
