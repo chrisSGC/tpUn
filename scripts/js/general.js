@@ -1,3 +1,12 @@
+/**
+ * general.js
+ * 
+ * Créé par Christophe FERRU
+ * 
+ * TP Interfaces du Web avancées
+ * finalisé le 28-09-2020
+ **/
+
 var page = document.getElementsByTagName("BODY")[0];
 
 var fondsPossibles = ['Spacebattle.jpg', 'stargate.jpg', 'stvssw.jpg'];
@@ -198,8 +207,32 @@ function changerEnvironnement(typeEnvironnement){
  * @param {integer} hausse 
  */
 function mettreAJourCompteur(hausse){
-
     compteur = (statutPartie == 1) ? compteur + hausse : compteur;
 
     document.getElementById('zonePoints').innerHTML = compteur;
+}
+
+/**
+ * Permet de modifier la tialle du texte
+ * @param {integer} typeTaille 
+ */
+function changerTaille(typeTaille){
+    let tailleFinale = "";
+
+    switch(typeTaille){
+        default:
+            tailleFinale = "8px";
+            break;
+        case 1:
+            tailleFinale = "8px";
+            break;
+        case 2:
+            tailleFinale = "16px";
+            break;
+        case 3:
+            tailleFinale = "25px";
+            break;
+    }
+
+    document.getElementById("menuJeu").parentElement.style.fontSize = tailleFinale;
 }

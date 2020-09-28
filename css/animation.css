@@ -1,3 +1,12 @@
+/**
+ * animation.css
+ * 
+ * Créé par Christophe FERRU
+ * 
+ * TP Interfaces du Web avancées
+ * finalisé le 28-09-2020
+ **/
+
 /* Spritesheet X-wing */ 
 @keyframes Xwing{ 0%{ background-position: 69px 0px; } 100%{ background-position: 843px 0px; } }
 

@@ -1,3 +1,12 @@
+/**
+ * general.css
+ * 
+ * Créé par Christophe FERRU
+ * 
+ * TP Interfaces du Web avancées
+ * finalisé le 28-09-2020
+ **/
+
 html, body{ margin: 0; padding: 0; height: 100vh; }
 .menu{ display: flex; justify-content: center; }
 ul{ list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333; }
@@ -11,10 +20,3 @@ li.dropdown{ display: inline-block; }
 .dropdown:hover .dropdown-content{ display: block; }
 .joueur{ background-color: #f1f1f1; color: #6D071A; padding: 0 16px; }
 #officerName{ font-weight: bold; }
-
-
-
-
-/***TESt***/
-.noir{ width: 20%; padding: 2%; background-color: #6D071A; color: #f1f1f1; font-weight: bold; text-align: center; margin: auto; margin-top: 2vh; }
-.noir:hover{ background-color: #f1f1f1; color: #6D071A; }
