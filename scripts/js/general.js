@@ -8,6 +8,8 @@ var compteur = 0;
 var boitePoints = "";
 var monXWing = "";
 var spriteSheet = new Image();
+var statutPartie = 0;
+var monAudio;
 
 // Durée de la partie random entre 15 et 120 secondes
 var dureePartie = 0;
@@ -25,18 +27,22 @@ function initialiserPartie(){
     if(document.getElementById('zonePoints')){
         document.getElementById("zonePoints").remove();
         document.getElementById("leXWingDuGagnant").remove();
+        monAudio.src = "none";
     }
 
     // On demande le nom du joueur que l'on place dans la variable
     if(nomJoueur == ""){
-        nomJoueur = prompt("Tactical officer on the bridge! Hi sir! Our captain need your name!");
+        while(nomJoueur == ""){
+            nomJoueur = prompt("Tactical officer on the bridge! Hi sir! Our captain need your name!");
+        }
     }
 
     // On affiche le nom du joueur dans la partie prévue à cet effet
     document.getElementById('officerName').innerHTML = nomJoueur;
 
-    // On initialise les compteurs
+    // On initialise les compteurs et le statut de la partie
     compteur = 0;
+    statutPartie = 0;
 
     // On crée la boite pour afficher le compteur
     miseEnPlacePoints();
@@ -46,26 +52,54 @@ function initialiserPartie(){
 
     // On met en  place l'image du X-wing
     spriteSheet.src = "images/personnages/xwing.png";
-    monXWing = document.createElement("canvas");
-    monXWing.id = "leXWingDuGagnant";
-    monXWing.style.width = "69px";
-    monXWing.style.height = "76px";
-    monXWing.style.background = "url("+spriteSheet.src+")";
-
-    document.getElementById("zoneDeJeu").appendChild(monXWing);
+    ajouterXwing();
 
     document.getElementById('leXWingDuGagnant').addEventListener('click', function(){
         // On met à jour le compteur
         mettreAJourCompteur(2);
     });
+
+    document.addEventListener('keydown', function(event){
+        var keypress = String.fromCharCode(event.keyCode);
+
+        if(keypress == "A"){
+            // Le joueur a appuyé sur A, on lance donc la partie
+            statutPartie = 1;
+            mettreEnPlaceMusique();
+
+            //On met en place l'animation en fonction du fond choisi
+            switch(themeActuel){
+                default:
+                    monXWing.style.animation = "mvtCoruscant linear 20s infinite, Xwing 1s steps(8) infinite";
+                    break;
+                case 0:
+                    monXWing.style.animation = "mvtCoruscant linear 20s infinite, Xwing 1s steps(8) infinite";
+                    break;
+                case 1:
+                    monXWing.style.animation = "fightWraiths linear 15s infinite, Xwing 1s steps(8) infinite";
+                    break;
+                case 2:
+                    monXWing.style.animation = "UssEnterpriseVSMilleniumFalcon linear 10s infinite, Xwing 1s steps(8) infinite";
+                    break;
+            }
+        }
+    });
+
+    document.addEventListener('mousedown', function(event){
+        monXWing.style.background = "url(images/personnages/explosion.png)";
+    });
+
+    document.addEventListener('mouseup', function(event){
+        monXWing.style.background = "url("+spriteSheet.src+")";
+    });
 }
 
 /**
- * Permet de gérer le chrono et donc la fin de partie
+ * Permet de gérer le chrono (si la aprtie a été lancée) et donc la fin de partie
  */
 function gererChrono(){
     if(dureePartie > 0){
-        dureePartie = dureePartie - 1;
+        dureePartie = (statutPartie == 1) ? dureePartie - 1 : dureePartie;
         console.log("Nouveau compte: "+dureePartie);
     }else if(dureePartie <= 0){
         if(confirm("FIN DE PARTIE\nVous avez atteint "+compteur+"pts.\nVoulez-vous recommencer?")){
@@ -76,6 +110,41 @@ function gererChrono(){
             close();
         }
     }
+}
+
+function mettreEnPlaceMusique(){
+    monAudio = document.createElement("audio");
+    monAudio.id = "audioJeu";
+    monAudio.autoplay = "autoplay";
+
+    switch(themeActuel){
+        default:
+            monAudio.src = "sons/06-Caroline.mp3";
+            break;
+        case 0:
+            monAudio.src = "sons/06-Caroline.mp3";
+            break;
+        case 1:
+            monAudio.src = "sons/06-Caroline.mp3";
+            break;
+        case 2:
+            monAudio.src = "sons/06-Caroline.mp3";
+            break;
+    }
+}
+
+/**
+ * Ajouter le xwing sur la page
+ */
+function ajouterXwing(){
+    monXWing = document.createElement("canvas");
+    monXWing.id = "leXWingDuGagnant";
+    monXWing.style.position = "relative";
+    monXWing.style.width = "69px";
+    monXWing.style.height = "76px";
+    monXWing.style.background = "url("+spriteSheet.src+")";
+
+    document.getElementById("zoneDeJeu").appendChild(monXWing);
 }
 
 /**
@@ -89,7 +158,7 @@ function definirChrono(){
  * Affiche les regles du jeu
  */
 function afficherRegles(){
-    alert("Voici les regles du jeu:\nUtilisez Q et D pour un effet surprise\nIl s'agit d'un jeu de type clicker. C'est à dire que vous devez cliquer autan de fois que possible sur le X-Wing dans le temps imparti.\nAttention! Vous ne connaissez pas le chrono, c'est la Surprise Party du jeu! <(^-^)> Have Fun ¡!");
+    alert("Voici les regles du jeu:\nUtilisez A pour lancer la partie.\nIl s'agit d'un jeu de type clicker. C'est à dire que vous devez cliquer autan de fois que possible sur le X-Wing dans le temps imparti.\nAttention! Vous ne connaissez pas le chrono et la vitesse du S-wing varie en fonction du milieu, c'est la Surprise Party du jeu! <(^-^)> Have Fun ¡!");
 }
 
 /**
@@ -125,11 +194,12 @@ function changerEnvironnement(typeEnvironnement){
 }
 
 /**
- * Permet de mettre à jour le compteur ainsi que son affichage
+ * Permet de mettre à jour le compteur (uniquement si la partie est lancée) ainsi que son affichage
  * @param {integer} hausse 
  */
 function mettreAJourCompteur(hausse){
-    compteur = compteur + hausse;
+
+    compteur = (statutPartie == 1) ? compteur + hausse : compteur;
 
     document.getElementById('zonePoints').innerHTML = compteur;
 }
